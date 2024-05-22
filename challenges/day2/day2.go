@@ -14,14 +14,16 @@ var colorLimit = map[string]int{
 
 func Part1(input []string) int {
 	sumID := 0
+	lineRegex := regexp.MustCompile(`[;:]`)
+
 	for _, line := range input {
-		res := regexp.MustCompile(`[;:]`).Split(line, -1)
+		res := lineRegex.Split(line, -1)
 		gameID, _ := strconv.Atoi(strings.Split(res[0], " ")[1])
 		isPossible := true
 
 	outer:
-		for _, match := range res[1:] {
-			for _, cubes := range strings.Split(match, ",") {
+		for _, set := range res[1:] {
+			for _, cubes := range strings.Split(set, ",") {
 				cubesParsed := strings.Split(strings.TrimSpace(cubes), " ")
 				count, _ := strconv.Atoi(cubesParsed[0])
 				color := cubesParsed[1]
@@ -42,8 +44,10 @@ func Part1(input []string) int {
 
 func Part2(input []string) int {
 	sum := 0
+	lineRegex := regexp.MustCompile(`[;:]`)
+
 	for _, line := range input {
-		res := regexp.MustCompile(`[;:]`).Split(line, -1)
+		sets := lineRegex.Split(line, -1)
 
 		maxCube := map[string]int{
 			"red":   0,
@@ -51,8 +55,8 @@ func Part2(input []string) int {
 			"blue":  0,
 		}
 
-		for _, match := range res[1:] {
-			for _, cubes := range strings.Split(match, ",") {
+		for _, set := range sets[1:] {
+			for _, cubes := range strings.Split(set, ",") {
 				cubesParsed := strings.Split(strings.TrimSpace(cubes), " ")
 				count, _ := strconv.Atoi(cubesParsed[0])
 				color := cubesParsed[1]
