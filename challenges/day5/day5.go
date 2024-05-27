@@ -49,6 +49,10 @@ func Part1(input []string) int {
 	return minLoc
 }
 
+// similar to part 1, but instead of only mapping
+// a single number, need to map a range
+// For each range, get the intersect and the unmapped section (non-intersect)
+// of the src
 func Part2(input []string) int {
 	seedStrs := strings.Fields(input[0])[1:]
 	srcs := make([][2]int, len(seedStrs)/2)
@@ -96,41 +100,34 @@ func Part2(input []string) int {
 	return minLoc
 }
 
+// Calculate the intersect and the unmapped sections between the two range
 func Intersect(src [2]int, srcMap [2]int, destStart int) ([2]int, [][2]int) {
 	srcStart, srcEnd := src[0], src[1]
 	srcMapStart, srcMapEnd := srcMap[0], srcMap[1]
 	unmapped := make([][2]int, 0, 2)
 
+	// if there is no overlap between the two range
+	// the src range is unmapped
 	if srcStart > srcMapEnd || srcMapStart > srcEnd {
 		unmapped = append(unmapped, src)
 		return [2]int{-1, -1}, unmapped
 	}
 
-	if srcMapStart <= srcStart && srcEnd <= srcMapEnd {
-		newSrcStart := srcStart - srcMapStart + destStart
-		newSrcEnd := srcEnd - srcMapStart + destStart
-		return [2]int{newSrcStart, newSrcEnd}, unmapped
-	}
-
-	if srcMapStart <= srcStart && srcEnd > srcMapEnd {
-		newSrcStart := srcStart - srcMapStart + destStart
-		newSrcEnd := srcMapEnd - srcMapStart + destStart
-		unmapped = append(unmapped, [2]int{srcMapEnd + 1, srcEnd})
-		return [2]int{newSrcStart, newSrcEnd}, unmapped
-	}
-
-	if srcMapStart > srcStart && srcEnd <= srcMapEnd {
-		newSrcEnd := srcEnd - srcMapStart + destStart
+	var newSrcStart int
+	if srcMapStart <= srcStart {
+		newSrcStart = srcStart - srcMapStart + destStart
+	} else {
+		newSrcStart = destStart
 		unmapped = append(unmapped, [2]int{srcStart, srcMapStart - 1})
-		return [2]int{destStart, newSrcEnd}, unmapped
 	}
 
-	if srcMapStart > srcStart && srcEnd > srcMapEnd {
-		newSrcEnd := srcMapEnd - srcMapStart + destStart
-		unmapped = append(unmapped, [2]int{srcStart, srcMapStart - 1})
+	var newSrcEnd int
+	if srcEnd <= srcMapEnd {
+		newSrcEnd = srcEnd - srcMapStart + destStart
+	} else {
+		newSrcEnd = srcMapEnd - srcMapStart + destStart
 		unmapped = append(unmapped, [2]int{srcMapEnd + 1, srcEnd})
-		return [2]int{destStart, newSrcEnd}, unmapped
 	}
 
-	panic("unreachable case")
+	return [2]int{newSrcStart, newSrcEnd}, unmapped
 }
