@@ -32,7 +32,7 @@ func ReadInputFromFile(fileName string) []string {
 }
 
 func ToInput(literal string) []string {
-	return strings.Split(literal, "\n")
+	return strings.Split(strings.Trim(literal, "\n"), "\n")
 }
 
 func ExpectInt(t *testing.T, actual int, expected int) {

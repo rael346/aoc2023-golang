@@ -6,7 +6,8 @@ import (
 	"github.com/rael346/aoc2023-golang/internal/utils"
 )
 
-var givenInput = `seeds: 79 14 55 13
+var givenInput = `
+seeds: 79 14 55 13
 
 seed-to-soil map:
 50 98 2
@@ -38,7 +39,8 @@ temperature-to-humidity map:
 
 humidity-to-location map:
 60 56 37
-56 93 4`
+56 93 4
+`
 
 func TestPart1Given(t *testing.T) {
 	result := Part1(utils.ToInput(givenInput))

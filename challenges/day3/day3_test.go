@@ -6,7 +6,8 @@ import (
 	"github.com/rael346/aoc2023-golang/internal/utils"
 )
 
-var givenInput = `467..114..
+var givenInput = `
+467..114..
 ...*......
 ..35..633.
 ......#...
@@ -15,7 +16,8 @@ var givenInput = `467..114..
 ..592.....
 ......755.
 ...$.*....
-.664.598..`
+.664.598..
+`
 
 func TestPart1Given(t *testing.T) {
 	result := Part1(utils.ToInput(givenInput))

@@ -6,8 +6,10 @@ import (
 	"github.com/rael346/aoc2023-golang/internal/utils"
 )
 
-var givenInput = ` Time:      7  15   30
-Distance:  9  40  200`
+var givenInput = `
+Time:      7  15   30
+Distance:  9  40  200
+`
 
 func TestPart1Given(t *testing.T) {
 	result := Part1(utils.ToInput(givenInput))
@@ -26,5 +28,5 @@ func TestPart2Given(t *testing.T) {
 
 func TestPart2Actual(t *testing.T) {
 	result := Part2(utils.ReadInputFromFile("input.txt"))
-	utils.ExpectInt(t, result, -1)
+	utils.ExpectInt(t, result, 27102791)
 }
