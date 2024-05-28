@@ -61,3 +61,12 @@ func LCM(a, b int, integers ...int) int {
 
 	return result
 }
+
+func All[T any](ts []T, pred func(T) bool) bool {
+	for _, t := range ts {
+		if !pred(t) {
+			return false
+		}
+	}
+	return true
+}
