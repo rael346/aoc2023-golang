@@ -105,5 +105,5 @@ func TestPart2GivenLarge(t *testing.T) {
 
 func TestPart2Actual(t *testing.T) {
 	result := Part2(utils.ReadInputFromFile("input.txt"))
-	utils.ExpectInt(t, result, -1)
+	utils.ExpectInt(t, result, 381)
 }
