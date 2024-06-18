@@ -10,8 +10,11 @@ type Point struct {
 }
 
 var TOP = Point{0, -1}
+
 var BOTTOM = Point{0, 1}
+
 var LEFT = Point{-1, 0}
+
 var RIGHT = Point{1, 0}
 
 func (p1 Point) add(p2 Point) Point {
@@ -80,7 +83,8 @@ func findLoop(start Point, tileMap [][]rune) []Point {
 		currItem := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
 
-		if currItem.curr.y < 0 || currItem.curr.y > numRow-1 || currItem.curr.x < 0 || currItem.curr.x > numCol-1 {
+		if currItem.curr.y < 0 || currItem.curr.y > numRow-1 || currItem.curr.x < 0 ||
+			currItem.curr.x > numCol-1 {
 			continue
 		}
 
@@ -98,11 +102,17 @@ func findLoop(start Point, tileMap [][]rune) []Point {
 		pipeOut2 := currItem.curr.add(pipeMap[currSymbol][1])
 
 		if pipeOut1.isEqual(currItem.prev) {
-			stack = append(stack, Item{currItem.curr, pipeOut2, append(currItem.path, currItem.curr)})
+			stack = append(
+				stack,
+				Item{currItem.curr, pipeOut2, append(currItem.path, currItem.curr)},
+			)
 		}
 
 		if pipeOut2.isEqual(currItem.prev) {
-			stack = append(stack, Item{currItem.curr, pipeOut1, append(currItem.path, currItem.curr)})
+			stack = append(
+				stack,
+				Item{currItem.curr, pipeOut1, append(currItem.path, currItem.curr)},
+			)
 		}
 	}
 

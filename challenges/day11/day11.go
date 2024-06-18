@@ -1,6 +1,8 @@
 package day11
 
-import "math"
+import (
+	"math"
+)
 
 type Point struct {
 	x int
